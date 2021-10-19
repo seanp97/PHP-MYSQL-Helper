@@ -36,11 +36,9 @@ class Database {
 
 
         if (mysqli_num_rows($result) > 0) {
-            
-            $data = array();
 
             while($row = mysqli_fetch_assoc($result)) {
-                $data += $row;
+                $data[] = $row;
             }
 
             return $data;

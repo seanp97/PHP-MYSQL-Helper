@@ -14,11 +14,11 @@ class Database {
     }
 
 
-    private function Connect(){
-        $this->host = '';
-        $this->user = '';
+    private function Connect() {
+        $this->host = 'localhost';
+        $this->user = 'root';
         $this->pass = '';
-        $this->db = '';
+        $this->db = 'url';
 
         $this->mysqli = new mysqli($this->host, $this->user, $this->pass, $this->db);
 
@@ -30,10 +30,13 @@ class Database {
     }
 
 
-    public function Select($sql){
+    public function Select($sql) {
 
         $result = mysqli_query($this->mysqli, $sql);
 
+        if (!$result) {
+            die(mysqli_error($this->mysqli));
+        }
 
         if (mysqli_num_rows($result) > 0) {
 
@@ -42,44 +45,16 @@ class Database {
             }
 
             return $data;
-
         } 
           
-        mysqli_close($this->mysqli);
     }
 
 
-    public function Insert($sql) {
-        if (mysqli_query($this->mysqli, $sql)) {
-            echo "New record created successfully";
-        } 
-        else {
+    public function SQL($sql) {
+        if (!mysqli_query($this->mysqli, $sql)) {
             echo "Error: " . $sql . "<br>" . mysqli_error($this->mysqli);
-        }
-        
-        mysqli_close($this->mysqli);
-    }
+        } 
 
-
-    public function Delete($sql) {
-        if (mysqli_query($this->mysqli, $sql)) {
-            echo "Record deleted successfully";
-        } else {
-            echo "Error deleting record: " . mysqli_error($this->mysqli);
-        }
-          
-        mysqli_close($this->mysqli);
-    }
-
-
-    public function Update($sql) {
-        if (mysqli_query($this->mysqli, $sql)) {
-            echo "Record updated successfully";
-        } else {
-        echo "Error updating record: " . mysqli_error($this->mysqli);
-        }
-          
-        mysqli_close($this->mysqli);
     }
 
 }

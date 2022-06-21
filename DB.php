@@ -15,10 +15,10 @@ class Database {
 
 
     private function Connect() {
-        $this->host = 'localhost';
-        $this->user = 'root';
+        $this->host = '';
+        $this->user = '';
         $this->pass = '';
-        $this->db = 'url';
+        $this->db = '';
 
         $this->mysqli = new mysqli($this->host, $this->user, $this->pass, $this->db);
 
